@@ -7,9 +7,7 @@ from termcolor import colored
 from datetime import datetime
 import openai
 import tqdm
-from kaggle_secrets import UserSecretsClient
-secret_label = "open_ai_key"
-secret_value = UserSecretsClient().get_secret(secret_label)
+
 
 # class for calling OpenAI API and handling cache
 class GptApi:
@@ -28,7 +26,7 @@ class GptApi:
         elif "OPENAI_API_KEY" in os.environ:
             # OpenAI API access
             self.client = openai.OpenAI(
-                api_key=secret_value
+                api_key=os.environ["OPENAI_API_KEY"]
             )
         else:
             raise Exception("OPENAI_API_KEY or OPENAI_AZURE_KEY not found in environment")
